@@ -1,0 +1,10 @@
+header {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 99;
+  background: #325aa8;
+  color: #fff;
+  padding: 15px; }
+  header .reload {
+    font-size: 40px; }
