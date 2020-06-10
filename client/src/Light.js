@@ -7,7 +7,9 @@ class Light extends React.Component {
     this.state = {
         bri: null,
         hue: null,
-        sat: null
+        sat: null,
+        ct: null,
+        changing: null
 
     }
   }
@@ -16,19 +18,24 @@ class Light extends React.Component {
     //console.log('mounted');
     const { attributes } = this.props;
     this.setState({
-        bri: attributes.bri
-    })
+        on: attributes.on,
+        bri: attributes.bri,
+        hue: attributes.hue,
+        sat: attributes.sat,
+        ct: attributes.ct
+
+    });
   }
 
   getLight = (id) => {
     const { modelId, name, productId, attributes } = this.props;
-    console.log(attributes);
+    //console.log(attributes);
     const currentLight = <div className="light-wrap clearfix">
         <LightImg key={id} modelId={modelId} />
         <div className="light-meta">
             <h2>{name}</h2>
             <p><b>{modelId}</b></p>
-            <p><b>{productId}</b></p>
+            {/* <p><b>{productId}</b></p> */}
             {Object.entries(attributes).map((entry, index) => {
             return (
                 <div>
@@ -45,12 +52,12 @@ class Light extends React.Component {
                 }
                 <div className="slidecontainer">
                     <p>Britness</p>
-                    <input type="range" onChange={(e) => this.handleSlide(e, id)} min="1" max="254" value={this.state.bri || ""} className="slider" name="bri" id="brightness" />
+                    <input type="range" onChange={(e) => this.handleSlide(e, id)} step="6" min="1" max="254" value={this.state.bri || ""} className="slider" name="bri" id="brightness" />
                 </div>
                 {attributes.hue &&  
                     <div className="slidecontainer">
                         <p>Color</p>
-                        <input type="range" onChange={(e) => this.handleSlideHue(e, id)} min="0" max="65535" value={this.state.hue || ""} className="slider" name="hue" id="hue" />
+                        <input type="range" onChange={(e) => this.handleSlideHue(e, id)} step="5" min="0" max="65535" value={this.state.hue || ""} className="slider" name="hue" id="hue" />
                     </div>
                 }
                 {attributes.sat &&
@@ -59,6 +66,10 @@ class Light extends React.Component {
                         <input type="range" onChange={(e) => this.handleSlideSat(e, id)} min="0" max="254" value={this.state.sat || ""} className="slider" name="sat" id="sat" />
                     </div>
                 }
+                <div className="slidecontainer">
+                    <p>Color Temperature</p>
+                    <input type="range" onChange={(e) => this.handleSlideCT(e, id)} min="153" max="500" value={this.state.ct || ""} className="slider" name="ct" id="ct" />
+                </div>
             </div>
         </div>
     </div>;
@@ -66,24 +77,31 @@ class Light extends React.Component {
   }
 
   handleSlide = (e, id) => {
-      e.persist();
-      let obj = {};
-      //console.log(e.target.name, e.target.value);
-      obj[e.target.name] = e.target.value;
-      this.setState(obj);
-      this.props.client.lights.getById(id)
-          .then(light => {
-              light.brightness = e.target.value
-              return this.props.client.lights.save(light);
-          })
-          .then(light => {
-              console.log(`Updated light [${light.id}]`);
-              //this.props.discoverBridge();
-          })
-          .catch(error => {
-              console.log('Something went wrong');
-              console.log(error.stack);
-          });
+        e.persist();
+        let obj = {};
+        //console.log(e.target.name, e.target.value);
+        obj[e.target.name] = e.target.value;
+        this.setState(obj); //update state every time && then use state to update hue each second or 2
+        if (!this.state.changing) {
+            this.setState({ changing: true });
+            setTimeout(() => {
+                this.props.client.lights.getById(id)
+                    .then(light => {
+                        light.brightness = this.state.bri;
+                        return this.props.client.lights.save(light);
+                    })
+                    .then(light => {
+                        console.log(`Updated light [${light.id}]`);
+                        //this.props.discoverBridge();
+                        this.props.getAllLights();
+                    })
+                    .catch(error => {
+                        console.log('Something went wrong');
+                        console.log(error.stack);
+                    });
+                    this.setState({ changing: false });  
+                }, 1000);
+        }
     }
     handleSlideHue = (e, id) => {
         e.persist();
@@ -99,6 +117,7 @@ class Light extends React.Component {
             .then(light => {
                 console.log(`Updated light [${light.id}]`);
                 //this.props.discoverBridge();
+                this.props.getAllLights();
             })
             .catch(error => {
                 console.log('Something went wrong');
@@ -107,8 +126,8 @@ class Light extends React.Component {
     }
     handleSlideSat = (e, id) => {
         //timeout && clearTimeout(timeout);
-        const to = setTimeout(() => {
-            console.log('update bridge');}, 1000);
+        /* const to = setTimeout(() => {
+            console.log('update bridge');}, 1000); */
             
             e.persist();
             let obj = {};
@@ -123,6 +142,7 @@ class Light extends React.Component {
                 .then(light => {
                     console.log(`Updated light [${light.id}]`);
                     //this.props.discoverBridge();
+                    this.props.getAllLights();
                 })
                 .catch(error => {
                     console.log('Something went wrong');
@@ -132,19 +152,42 @@ class Light extends React.Component {
         
     }
 
+    handleSlideCT = (e, id) => {
+        e.persist();
+        let obj = {};
+        //console.log(e.target.name, e.target.value);
+        obj[e.target.name] = e.target.value;
+        this.setState(obj);
+        this.props.client.lights.getById(id)
+            .then(light => {
+                light.colorTemp = e.target.value
+                return this.props.client.lights.save(light);
+            })
+            .then(light => {
+                console.log(`Updated light [${light.id}]`);
+                //this.props.discoverBridge();
+                this.props.getAllLights();
+            })
+            .catch(error => {
+                console.log('Something went wrong');
+                console.log(error.stack);
+            });
+
+
+    }
+
     updateLightState = (e, id, lightState) => {
         e.persist();
-        console.log(e.target.value);
+        //console.log(e.target.value);
         this.props.client.lights.getById(id)
             .then(light => {
                 light.on = lightState;
-              //light.hue = 32554;
-              //light.saturation = 254; */
               return this.props.client.lights.save(light);
           })
           .then(light => {
               console.log(`Updated light [${light.id}]`);
-              this.props.discoverBridge();
+              //this.props.discoverBridge();
+              this.props.getAllLights();
           })
           .catch(error => {
               console.log('Something went wrong');

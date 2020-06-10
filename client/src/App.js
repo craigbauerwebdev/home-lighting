@@ -86,12 +86,17 @@ class App extends React.Component {
     this.setState({
       client: client
     });
-    client.lights.getAll()
+
+    // create functions for each group
+    /* client.lights.getAll()
       .then(lights => {
         //console.log(lights);
         this.setState({ lights: lights });
         //console.log(this.state.lights);
-      });
+      }); */
+
+    this.getAllLights();
+
     client.users.getAll()
       .then(users => {
         console.log(users);
@@ -108,7 +113,7 @@ class App extends React.Component {
         }
       });
 
-    this.state.client.groups.getAll()
+    client.groups.getAll()
       .then(groups => {
         this.setState({
           groups: groups
@@ -147,6 +152,13 @@ class App extends React.Component {
       });
   }
 
+  getAllLights = () => {
+    this.state.client.lights.getAll()
+      .then(lights => {
+        this.setState({ lights: lights });
+      });
+  }
+
   getUserByName(client, user) {
     client.users.getByUsername(user)
       .then(user => {
@@ -167,14 +179,14 @@ class App extends React.Component {
         <div className="App">
           <header className="App-header clearfix">
             <h1 className="left">Foxwood Home Lighting</h1>
-            <span onClick={this.discoverBridge} className="material-icons right reload">refresh</span>
+            <span onClick={this.getAllLights} className="material-icons right reload">refresh</span>
             <span onClick={this.discoverBridge} className="material-icons right reload">emoji_objects</span>
             <span onClick={this.discoverBridge} className="material-icons right reload">group_work</span>
             <span onClick={this.discoverBridge} className="material-icons right reload">settings_brightness</span>
 
             {/* <h2>{this.state.lights[4].state.attributes.bri}</h2> */}
           </header>
-          <Lights lights={this.state.lights} client={this.state.client} discoverBridge={this.discoverBridge} />
+          <Lights lights={this.state.lights} client={this.state.client} discoverBridge={this.discoverBridge} getAllLights={this.getAllLights} />
           {/* Routes */}
           <footer>
             <p>Footer Stuff</p>

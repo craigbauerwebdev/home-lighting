@@ -10,9 +10,9 @@ class Lights extends React.Component {
   } */
 
   getLights(light) {
-    const { client, discoverBridge } = this.props;
+    const { client, discoverBridge, getAllLights } = this.props;
     if(light.reachable) {
-    return <Light id={light.id} key={`light=${light.id}`} modelId={light.modelId} name={light.attributes.attributes.name} productId={light.productId} attributes={light.state.attributes} client={client} discoverBridge={discoverBridge} />;
+      return <Light id={light.id} key={`light=${light.id}`} modelId={light.modelId} name={light.attributes.attributes.name} productId={light.productId} attributes={light.state.attributes} client={client} discoverBridge={discoverBridge} getAllLights={getAllLights} />;
     }
     return null;
   }
