@@ -15,17 +15,3 @@ body {
     content: "";
     clear: both;
     display: table; }
-  body .light-wrap {
-    margin-bottom: 15px;
-    border-bottom: 1px solid #ddd; }
-  body .light-img {
-    float: left;
-    width: 40%;
-    max-width: 500px;
-    clear: both;
-    margin-right: 30px; }
-  body .light-meta {
-    padding-top: 40px; }
-  body footer {
-    clear: both;
-    margin-top: 500px; }
