@@ -2,29 +2,35 @@
     margin-bottom: 15px;
     border-bottom: 1px solid #ddd;
     .light-img-wrap {
-        width: 250px;
-        height: 200px;
+        width: 200px;
+        height: 140px;
         float: left;
         background-size: contain;
         background-position: center;
         background-repeat: no-repeat;
-        margin-top: 15px;
+        margin: 15px 30px 0 0;
     }
    // background-image: url(/img/huelights/LTW004.jpg);
-    
-   .light-meta {
-        .controls {
-            clear: both;
-            padding: 30px;
-            .slidecontainer {
-                margin: 30px 0;
-            }
+    .slidecontainer {
+        p {
+            margin-bottom: 15px;
         }
+    }
+    .light-meta {
+
+    }
+    .controls {
+        clear: both;
+        padding: 30px;
+        .slidecontainer {
+            margin: 30px 0;
+        }
+    
         padding-top: 40px;
         .toggle {
-           font-size: 100px;
-           color: #325aa8;
-           cursor: pointer;
+        font-size: 100px;
+        color: #325aa8;
+        cursor: pointer;
         }
         .slider {
             -webkit-appearance: none;
@@ -54,6 +60,5 @@
             background: #4CAF50;
             cursor: pointer;
         }
-   }
-   
+    }
 }

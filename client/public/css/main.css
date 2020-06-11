@@ -35,25 +35,26 @@ footer {
   margin-bottom: 15px;
   border-bottom: 1px solid #ddd; }
   .light-wrap .light-img-wrap {
-    width: 250px;
-    height: 200px;
+    width: 200px;
+    height: 140px;
     float: left;
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    margin-top: 15px; }
-  .light-wrap .light-meta {
+    margin: 15px 30px 0 0; }
+  .light-wrap .slidecontainer p {
+    margin-bottom: 15px; }
+  .light-wrap .controls {
+    clear: both;
+    padding: 30px;
     padding-top: 40px; }
-    .light-wrap .light-meta .controls {
-      clear: both;
-      padding: 30px; }
-      .light-wrap .light-meta .controls .slidecontainer {
-        margin: 30px 0; }
-    .light-wrap .light-meta .toggle {
+    .light-wrap .controls .slidecontainer {
+      margin: 30px 0; }
+    .light-wrap .controls .toggle {
       font-size: 100px;
       color: #325aa8;
       cursor: pointer; }
-    .light-wrap .light-meta .slider {
+    .light-wrap .controls .slider {
       -webkit-appearance: none;
       width: 100%;
       height: 15px;
@@ -63,7 +64,7 @@ footer {
       opacity: 0.7;
       -webkit-transition: .2s;
       transition: opacity .2s; }
-    .light-wrap .light-meta .slider::-webkit-slider-thumb {
+    .light-wrap .controls .slider::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
       width: 25px;
@@ -71,7 +72,7 @@ footer {
       border-radius: 50%;
       background: #325aa8;
       cursor: pointer; }
-    .light-wrap .light-meta .slider::-moz-range-thumb {
+    .light-wrap .controls .slider::-moz-range-thumb {
       width: 25px;
       height: 25px;
       border-radius: 50%;
