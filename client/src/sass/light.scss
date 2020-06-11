@@ -1,13 +1,17 @@
 .light-wrap {
     margin-bottom: 15px;
     border-bottom: 1px solid #ddd;
-    .light-img {
+    .light-img-wrap {
+        width: 250px;
+        height: 200px;
         float: left;
-        width: 40%;
-        max-width: 500px;
-        clear: both;
-        margin-right: 30px;
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        margin-top: 15px;
     }
+   // background-image: url(/img/huelights/LTW004.jpg);
+    
    .light-meta {
         .controls {
             clear: both;
