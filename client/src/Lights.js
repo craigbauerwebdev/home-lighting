@@ -18,6 +18,7 @@ class Lights extends React.Component {
   }
 
   render() {
+    console.log('reloaded');
     const { lights } = this.props;
     return (
       <Fragment>

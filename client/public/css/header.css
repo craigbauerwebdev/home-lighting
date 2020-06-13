@@ -7,4 +7,8 @@ header {
   color: #fff;
   padding: 15px; }
   header .reload {
-    font-size: 40px; }
+    cursor: pointer; }
+  header .material-icons {
+    font-size: 35px;
+    color: #fff;
+    margin-left: 15px; }

@@ -7,6 +7,11 @@ header {
     color: #fff;
     padding: 15px;
     .reload {
-        font-size: 40px;
+        cursor: pointer;
+    }
+    .material-icons {
+        font-size: 35px;
+        color: #fff;
+        margin-left: 15px;
     }
 }

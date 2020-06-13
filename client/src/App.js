@@ -1,6 +1,9 @@
 import React from 'react';
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import huejay from 'huejay';
 import Lights from './Lights';
+import Groups from './Groups';
+import Scenes from './Scenes';
 
 class App extends React.Component {
   constructor(props) {
@@ -12,6 +15,7 @@ class App extends React.Component {
 
   componentDidMount = () => {
     this.discoverBridge();
+
     
    /*  client.users.getAll()
       .then(users => {
@@ -83,6 +87,7 @@ class App extends React.Component {
       host: ip,
       username: user
     });
+    //call action creator to client to store
     this.setState({
       client: client
     });
@@ -153,6 +158,7 @@ class App extends React.Component {
   }
 
   getAllLights = () => {
+    //call action creator to add lights to store
     this.state.client.lights.getAll()
       .then(lights => {
         this.setState({ lights: lights });
@@ -177,20 +183,45 @@ class App extends React.Component {
       //console.log(this.state.client);
       return (
         <div className="App">
-          <header className="App-header clearfix">
-            <h1 className="left">Foxwood Home Lighting</h1>
-            <span onClick={this.getAllLights} className="material-icons right reload">refresh</span>
-            <span onClick={this.discoverBridge} className="material-icons right reload">emoji_objects</span>
-            <span onClick={this.discoverBridge} className="material-icons right reload">group_work</span>
-            <span onClick={this.discoverBridge} className="material-icons right reload">settings_brightness</span>
+          <Router>
+            <header className="App-header clearfix">
+              <h1 className="left">Foxwood Home Lighting</h1>
+              <span onClick={this.getAllLights} className="material-icons right reload">refresh</span>
+              <Link to="/lights">
+                <span className="material-icons right">emoji_objects</span>
+              </Link>
+              <Link to="/groups">
+                <span className="material-icons right">group_work</span>
+              </Link>
+              <Link to="/scenes">
+                <span className="material-icons right">settings_brightness</span>
+              </Link>
+              <Link to="/">
+                <span className="material-icons right">home</span>
+              </Link>
+              
 
-            {/* <h2>{this.state.lights[4].state.attributes.bri}</h2> */}
-          </header>
-          <Lights lights={this.state.lights} client={this.state.client} discoverBridge={this.discoverBridge} getAllLights={this.getAllLights} />
-          {/* Routes */}
-          <footer>
-            <p>Footer Stuff</p>
-          </footer>
+              {/* <h2>{this.state.lights[4].state.attributes.bri}</h2> */}
+            </header>
+            <Switch>
+              <Route exact path="/">
+                <h1>Home Route</h1>
+              </Route>
+              <Route path="/lights">
+                <Lights lights={this.state.lights} client={this.state.client} discoverBridge={this.discoverBridge} getAllLights={this.getAllLights} />
+              </Route>
+              <Route path="/groups">
+                <Groups />
+              </Route>
+              <Route path="/scenes">
+                <Scenes />
+              </Route>
+            </Switch>
+            {/* Routes */}
+            <footer>
+              <p>Footer Stuff</p>
+            </footer>
+          </Router>
         </div>
       );
     } else {
