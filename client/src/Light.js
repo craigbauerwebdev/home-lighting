@@ -31,26 +31,34 @@ class Light extends React.Component {
     const { modelId, name, productId, attributes } = this.props;
     //console.log(attributes);
     const currentLight = <div className="light-wrap clearfix">
-        <LightImg key={id} modelId={modelId} />
-        <div className="light-meta">
-            <h2>{name}</h2>
-            <p><b>{modelId}</b></p>
-            {/* <p><b>{productId}</b></p> */}
-            {/* {Object.entries(attributes).map((entry, index) => {
-            return (
-                <div>
-                <span>{entry[0]}</span> : <span>{entry[1].toString()}</span>
-                </div>
-            );
-            })} */}
-        </div>
-        <div className="controls">
+        <div className="light-top clearfix">
+            <LightImg key={id} modelId={modelId} />
+            <div className="light-meta">
+                <h2>{name}</h2>
+                <p><b>Model: {modelId}</b></p>
+                {/* <p><b>{productId}</b></p> */}
+                {/* {Object.entries(attributes).map((entry, index) => {
+                return (
+                    <div>
+                    <span>{entry[0]}</span> : <span>{entry[1].toString()}</span>
+                    </div>
+                );
+                })} */}
+            </div>
             {!attributes.on &&
                 <span onClick={(e) => this.updateLightState(e, id, true)} name="on" className="material-icons toggle">toggle_off</span>
             }
             {attributes.on &&
                 <span onClick={(e) => this.updateLightState(e, id, false)} name="off" className="material-icons toggle">toggle_on</span>
             }
+        </div>
+        <div className="controls">
+           {/*  {!attributes.on &&
+                <span onClick={(e) => this.updateLightState(e, id, true)} name="on" className="material-icons toggle">toggle_off</span>
+            }
+            {attributes.on &&
+                <span onClick={(e) => this.updateLightState(e, id, false)} name="off" className="material-icons toggle">toggle_on</span>
+            } */}
             <div className="slidecontainer">
                 <p>Brightness</p>
                 <input type="range" onChange={(e) => this.handleSlide(e, id)} min="1" max="254" value={this.state.brightness || ""} className="slider" name="brightness" id="brightness" />
@@ -207,10 +215,6 @@ class Light extends React.Component {
               console.log('Something went wrong');
               console.log(error.stack);
           });
-  }
-
-  test = () => {
-      console.log('calling from render func');
   }
 
   render() {

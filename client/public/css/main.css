@@ -38,26 +38,38 @@ footer {
 .light-wrap {
   margin-bottom: 15px;
   border-bottom: 1px solid #ddd; }
-  .light-wrap .light-img-wrap {
-    width: 200px;
-    height: 140px;
-    float: left;
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    margin: 15px 30px 0 0; }
+  .light-wrap .light-top {
+    position: relative;
+    border-bottom: 1px #ddd inset;
+    padding-bottom: 15px; }
+    .light-wrap .light-top .light-img-wrap {
+      width: 200px;
+      height: 140px;
+      float: left;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      margin: 15px 30px 0 0; }
+    .light-wrap .light-top .light-meta {
+      position: absolute;
+      top: 50%;
+      left: 230px;
+      transform: translateY(-50%); }
+    .light-wrap .light-top .toggle {
+      font-size: 100px;
+      color: #325aa8;
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      right: 30px;
+      transform: translateY(-50%); }
   .light-wrap .slidecontainer p {
     margin-bottom: 15px; }
   .light-wrap .controls {
     clear: both;
-    padding: 30px;
-    padding-top: 40px; }
+    padding: 10px 30px; }
     .light-wrap .controls .slidecontainer {
       margin: 30px 0; }
-    .light-wrap .controls .toggle {
-      font-size: 100px;
-      color: #325aa8;
-      cursor: pointer; }
     .light-wrap .controls .slider {
       -webkit-appearance: none;
       width: 100%;
