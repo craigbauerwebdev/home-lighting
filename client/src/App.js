@@ -185,22 +185,22 @@ class App extends React.Component {
         <div className="App">
           <Router>
             <header className="App-header clearfix">
-              <h1 className="left">Foxwood Home Lighting</h1>
-              <span onClick={this.getAllLights} className="material-icons right reload">refresh</span>
-              <Link to="/lights">
-                <span className="material-icons right">emoji_objects</span>
-              </Link>
-              <Link to="/groups">
-                <span className="material-icons right">group_work</span>
-              </Link>
-              <Link to="/scenes">
-                <span className="material-icons right">settings_brightness</span>
-              </Link>
-              <Link to="/">
-                <span className="material-icons right">home</span>
-              </Link>
-              
-
+              <img src="./img/fw-logo.png" height="60" />
+              <div className="navigation">
+                <span onClick={this.getAllLights} className="material-icons right reload">refresh</span>
+                <Link to="/lights">
+                  <span className="material-icons right">emoji_objects</span>
+                </Link>
+                <Link to="/groups">
+                  <span className="material-icons right">group_work</span>
+                </Link>
+                <Link to="/scenes">
+                  <span className="material-icons right">settings_brightness</span>
+                </Link>
+                <Link to="/">
+                  <span className="material-icons right">home</span>
+                </Link>
+              </div>
               {/* <h2>{this.state.lights[4].state.attributes.bri}</h2> */}
             </header>
             <Switch>
@@ -225,7 +225,16 @@ class App extends React.Component {
         </div>
       );
     } else {
-      return <p>loading</p>
+      return(
+        <div className="splash-page">
+          <div className="logo-lg-wrap">
+            <img src="./img/fw-logo-lg.png" />
+            <div className="loader-wrap center">
+              <div className="loader"></div>
+            </div>
+          </div>
+        </div>
+      )
     }
   }
 }
