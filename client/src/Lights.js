@@ -1,13 +1,12 @@
 import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
+import { getAllLights77 } from './redux/actions';
 import Light from './Light';
 
 class Lights extends React.Component {
-  /* constructor(props) {
-    super(props);
-    this.state = {
-
-    }
-  } */
+  componentDidMount = () => {
+    this.props.getAllLights77(this.props.client);
+  }
 
   getLights(light) {
     const { client, discoverBridge, getAllLights } = this.props;
@@ -31,4 +30,13 @@ class Lights extends React.Component {
   }
 }
 
-export default Lights;
+const mapStateToProps = (state) => {
+  return {
+    allLights: state.allLights
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  { getAllLights77 }
+)(Lights);
