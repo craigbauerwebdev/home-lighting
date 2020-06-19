@@ -5,7 +5,7 @@ import Light from './Light';
 
 class Lights extends React.Component {
   componentDidMount = () => {
-    this.props.getAllLights77(this.props.client);
+    this.props.getAllLights77(this.props.client); // get them directly from store. Rewire App & Lights component 
   }
 
   getLights(light) {

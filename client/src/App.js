@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import huejay from 'huejay';
+import { connect } from 'react-redux';
+import { createStoreClient, getAllLights77 } from './redux/actions';
 import Lights from './Lights';
 import Groups from './Groups';
 import Scenes from './Scenes';
@@ -88,9 +90,13 @@ class App extends React.Component {
       username: user
     });
     //call action creator to client to store
+    console.log('setting state');
     this.setState({
       client: client
     });
+
+    // sending client to store. Will replace passing to components manually
+    this.props.createStoreClient(client);
 
     // create functions for each group
     /* client.lights.getAll()
@@ -158,6 +164,7 @@ class App extends React.Component {
   }
 
   getAllLights = () => {
+    console.log('hahaha');
     //call action creator to add lights to store
     this.state.client.lights.getAll()
       .then(lights => {
@@ -208,7 +215,7 @@ class App extends React.Component {
                 <h1>Home Route</h1>
               </Route>
               <Route path="/lights">
-                <Lights lights={this.state.lights} client={this.state.client} discoverBridge={this.discoverBridge} getAllLights={this.getAllLights} />
+                <Lights lights={this.state.lights} client={this.state.client} getAllLights={this.getAllLights} />
               </Route>
               <Route path="/groups">
                 <Groups />
@@ -239,4 +246,13 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    storeClient: state.client
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  { createStoreClient, getAllLights77 }
+)(App);
