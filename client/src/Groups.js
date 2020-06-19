@@ -24,6 +24,12 @@ class Groups extends React.Component {
     console.log(group);
   }
 
+  getGroup = (name) => {
+    console.log(name);
+    //<Group />
+    return name;
+  }
+
   // in group component - 
   //   onChange /sec update state
   //   get group by id - update attribute and save group
@@ -36,10 +42,10 @@ class Groups extends React.Component {
            {/*  <div>{this.getLight(id)}</div> */}
            <h1>Groups Route</h1>
            {/* Loop through groups */}
-           {this.props.groups &&
-            this.props.groups.map((group) => {
+           {this.state.groups &&
+            this.state.groups.map((group) => {
               this.log(group);
-              return <p key={group}>group!!!_!!!</p>;
+              return <div key={group.id} className="group-section">{this.getGroup(group.name)}</div>;
               /* Create Group route and pass in info like lights */
             })
            }
