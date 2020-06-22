@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { getAllGroups } from './redux/actions';
+import Group from './Group';
 
 class Groups extends React.Component {
   constructor(props) {
@@ -14,20 +15,24 @@ class Groups extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    console.log("groups updated");
     // update state when store is updated
     if (prevProps.groups !== this.props.groups) {
       this.setState({ groups: this.props.groups })
     }
+    this.props.getAllGroups(this.props.storeClient);
   }
 
-  log(group) {
+  getAllGroupsAction() {
+    console.log('calling action creator');
+    this.props.getAllGroups(this.props.storeClient);
+  }
+
+  getGroups = (group) => {
     console.log(group);
-  }
-
-  getGroup = (name) => {
-    console.log(name);
-    //<Group />
-    return name;
+    const currentGroup =
+      <Group id={group.id} client={this.props.storeClient} attributes={group.action.attributes} groupName={group.name} getAllGroupsAction={this.getAllGroupsAction} />;
+    return currentGroup;
   }
 
   // in group component - 
@@ -40,12 +45,11 @@ class Groups extends React.Component {
     return (
         <Fragment>
            {/*  <div>{this.getLight(id)}</div> */}
-           <h1>Groups Route</h1>
+           <h1>Groups</h1>
            {/* Loop through groups */}
            {this.state.groups &&
             this.state.groups.map((group) => {
-              this.log(group);
-              return <div key={group.id} className="group-section">{this.getGroup(group.name)}</div>;
+              return <div key={group.id} className="group-section">{this.getGroups(group)}</div>;
               /* Create Group route and pass in info like lights */
             })
            }
