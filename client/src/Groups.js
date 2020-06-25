@@ -18,9 +18,9 @@ class Groups extends React.Component {
     console.log("groups updated");
     // update state when store is updated
     if (prevProps.groups !== this.props.groups) {
-      this.setState({ groups: this.props.groups })
+      this.setState({ groups: this.props.groups });
+      //this.props.getAllGroups(this.props.storeClient);
     }
-    this.props.getAllGroups(this.props.storeClient);
   }
 
   getAllGroupsAction() {
@@ -29,7 +29,7 @@ class Groups extends React.Component {
   }
 
   getGroups = (group) => {
-    console.log(group);
+    //console.log(group);
     const currentGroup =
       <Group id={group.id} client={this.props.storeClient} attributes={group.action.attributes} groupName={group.name} getAllGroupsAction={this.getAllGroupsAction} />;
     return currentGroup;
@@ -60,6 +60,7 @@ class Groups extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state);
   return {
     storeClient: state.client,
     groups: state.allGroups

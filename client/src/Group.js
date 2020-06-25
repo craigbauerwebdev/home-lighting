@@ -67,17 +67,12 @@ class Group extends React.Component {
         //console.log(e.target.value);
         this.props.client.groups.getById(id)
             .then(group => {
+                console.log('success');
                 group.on = groupState;
+                this.props.getAllGroupsAction();
                 return this.props.client.groups.save(group);
             })
-            .then(group => {
-                console.log(`Updated group [${id}]`);
-                //this.props.discoverBridge();
-                //this.props.getAllGroupsAction(); //used to update the component by triggering the groups comp again - use action creator
-                /* this.setState({
-                    on: groupState
-                }) */
-            })
+
             .catch(error => {
                 console.log('Something went wrong');
                 console.log(error.stack);
