@@ -8,6 +8,10 @@ class Lights extends React.Component {
     this.props.getAllLights77(this.props.client); // get them directly from store. Rewire App & Lights component 
   }
 
+  componentDidUpdate(prevProps) {
+    //this.props.getAllLights77(this.props.client);
+  }
+
   getLights(light) {
     const { client, discoverBridge, getAllLights } = this.props;
     if(light.reachable) {
@@ -17,7 +21,7 @@ class Lights extends React.Component {
   }
 
   render() {
-    console.log('reloaded');
+    console.log('lights reloaded');
     const { lights } = this.props;
     return (
       <Fragment>

@@ -12,26 +12,29 @@ class Groups extends React.Component {
   componentDidMount() {
     // set initial state here
     this.props.getAllGroups(this.props.storeClient);
+    
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps) { // use this to wait for redux thunk
     console.log("groups updated");
     // update state when store is updated
     if (prevProps.groups !== this.props.groups) {
       this.setState({ groups: this.props.groups });
       //this.props.getAllGroups(this.props.storeClient);
+    } else {
+      console.log('props were the same');
     }
   }
 
-  getAllGroupsAction() {
+  /* getAllGroupsAction() {
     console.log('calling action creator');
     this.props.getAllGroups(this.props.storeClient);
-  }
+  } */
 
   getGroups = (group) => {
     //console.log(group);
     const currentGroup =
-      <Group id={group.id} client={this.props.storeClient} attributes={group.action.attributes} groupName={group.name} getAllGroupsAction={this.getAllGroupsAction} />;
+      <Group id={group.id} client={this.props.storeClient} attributes={group.action.attributes} groupName={group.name} />;
     return currentGroup;
   }
 
@@ -52,8 +55,7 @@ class Groups extends React.Component {
               return <div key={group.id} className="group-section">{this.getGroups(group)}</div>;
               /* Create Group route and pass in info like lights */
             })
-           }
-           
+           } 
         </Fragment>
     );
   }

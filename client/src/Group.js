@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react';
-import LightImg from './LightImg';
+//import { connect } from 'react-redux';
+//import LightImg from './LightImg';
+import { getAllGroups } from './redux/actions';
 
 class Group extends React.Component {
   constructor(props) {
@@ -28,9 +30,12 @@ class Group extends React.Component {
   }
     componentDidUpdate(prevProps) {
         console.log("group updated");
+        console.log(prevProps, this.props);
         // update state when store is updated
         if (prevProps.attributes.on !== this.props.attributes.on) {
             this.setState({ groups: this.props.attributes.on })
+        } else {
+            console.log('props were the same');
         }
     }
 
@@ -50,10 +55,10 @@ class Group extends React.Component {
                 );
                 })} */}
               </div>
-              {!attributes.on &&
+              {!this.state.on &&
                   <span onClick={(e) => this.updateGroupState(e, id, true)} name="on" className="material-icons toggle">toggle_off</span>
               }
-              {attributes.on &&
+              {this.state.on &&
                   <span onClick={(e) => this.updateGroupState(e, id, false)} name="off" className="material-icons toggle">toggle_on</span>
               }
           </div>
@@ -69,8 +74,13 @@ class Group extends React.Component {
             .then(group => {
                 console.log('success');
                 group.on = groupState;
-                this.props.getAllGroupsAction();
                 return this.props.client.groups.save(group);
+            })
+            .then(() => {
+                getAllGroups();
+                this.setState({
+                    on: groupState
+                });
             })
 
             .catch(error => {
@@ -211,6 +221,7 @@ class Group extends React.Component {
 
   render() {
     const { id } = this.props;
+    console.log('Groupd Re-Rendered');
     return (
         <Fragment>
             <div className="group-section"><h1>{id}</h1>{this.getGroup(id)}</div>
@@ -219,4 +230,16 @@ class Group extends React.Component {
   }
 }
 
+/* const mapStateToProps = (state) => {
+    console.log(state);
+    return {
+        storeClient: state.client,
+        groups: state.allGroups
+    }
+} */
+
 export default Group;
+/* connect(
+    mapStateToProps,
+    { getAllGroups }
+)(Group); */
