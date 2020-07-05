@@ -16,7 +16,7 @@ class Groups extends React.Component {
   }
 
   componentDidUpdate(prevProps) { // use this to wait for redux thunk
-    console.log("groups updated");
+    //console.log("groups updated");
     // update state when store is updated
     if (prevProps.groups !== this.props.groups) {
       this.setState({ groups: this.props.groups });
@@ -62,7 +62,7 @@ class Groups extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
+  //console.log(state);
   return {
     storeClient: state.client,
     groups: state.allGroups

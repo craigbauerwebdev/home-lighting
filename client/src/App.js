@@ -90,7 +90,7 @@ class App extends React.Component {
       username: user
     });
     //call action creator to client to store
-    console.log('setting state');
+    //console.log('setting state');
     this.setState({
       client: client
     });
@@ -110,18 +110,18 @@ class App extends React.Component {
 
     client.users.getAll()
       .then(users => {
-        console.log(users);
+        //console.log(users);
       });
     client.scenes.getAll()
       .then(scenes => {
         this.setState({
           scenes: scenes
         });
-        for (let scene of scenes) {
+        /* for (let scene of scenes) {
           console.log(`Scene [${scene.id}]: ${scene.name}`);
           console.log('  Lights:', scene.lightIds.join(', '));
           console.log('-----------------');
-        }
+        } */
       });
 
     client.groups.getAll()
@@ -129,7 +129,7 @@ class App extends React.Component {
         this.setState({
           groups: groups
         });
-        for (let group of groups) {
+        /* for (let group of groups) {
           console.log(`Group [${group.id}]: ${group.name}`);
           console.log(`  Type: ${group.type}`);
           console.log(`  Class: ${group.class}`);
@@ -143,7 +143,7 @@ class App extends React.Component {
           console.log(`    Color mode: ${group.colorMode}`);
           console.log(`    Hue:        ${group.hue}`);
           console.log(`    Saturation: ${group.saturation}`);
-          //console.log(`    X/Y:        ${group.xy[0]}, ${group.xy[1]}`);
+        //console.log(`    X/Y:        ${group.xy[0]}, ${group.xy[1]}`);
           console.log(`    Color Temp: ${group.colorTemp}`);
           console.log(`    Alert:      ${group.alert}`);
           console.log(`    Effect:     ${group.effect}`);
@@ -157,14 +157,12 @@ class App extends React.Component {
             console.log(`    Name:         ${group.model.name}`);
             console.log(`    Type:         ${group.model.type}`);
           }
-
-          console.log();
-        }
+        } */
       });
   }
 
   getAllLights = () => {
-    console.log('hahaha');
+    //console.log('hahaha');
     //call action creator to add lights to store
     this.state.client.lights.getAll()
       .then(lights => {
@@ -176,9 +174,9 @@ class App extends React.Component {
     client.users.getByUsername(user)
       .then(user => {
         const prefix = user.attributes.attributes;
-        console.log(user);
+        /* console.log(user);
         console.log(prefix.name);
-        console.log(`Current User: ${user.username}`);
+        console.log(`Current User: ${user.username}`); */
       })
       .catch(error => {
         console.log(error.stack);

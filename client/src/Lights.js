@@ -9,6 +9,7 @@ class Lights extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    console.log('lights updated');
     //this.props.getAllLights77(this.props.client);
   }
 

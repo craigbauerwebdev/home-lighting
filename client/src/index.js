@@ -16,3 +16,5 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
+
+//git push --set-upstream origin bypassredux

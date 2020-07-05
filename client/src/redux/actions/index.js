@@ -33,7 +33,7 @@ export const getAllLights77 = (client) => async (dispatch, getState) => {
 }
 
 export const getAllGroups = (client) => async (dispatch, getState) => {
-    console.log('get_all_groups_fired');
+    console.log('getAllGroupsFired__ACTION_CREATOR');
     const response = await client.groups.getAll();
     dispatch({
         type: "GET_ALL_GROUPS",

@@ -29,8 +29,8 @@ class Group extends React.Component {
     });
   }
     componentDidUpdate(prevProps) {
-        console.log("group updated");
-        console.log(prevProps, this.props);
+        //console.log("group updated");
+        //console.log(prevProps, this.props);
         // update state when store is updated
         if (prevProps.attributes.on !== this.props.attributes.on) {
             this.setState({ groups: this.props.attributes.on })
@@ -221,7 +221,7 @@ class Group extends React.Component {
 
   render() {
     const { id } = this.props;
-    console.log('Groupd Re-Rendered');
+    //console.log('Group Re-Rendered');
     return (
         <Fragment>
             <div className="group-section"><h1>{id}</h1>{this.getGroup(id)}</div>
